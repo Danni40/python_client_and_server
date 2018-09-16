@@ -1,15 +1,14 @@
-#!/usr/bin/env python3
-from time import sleep
-import socket
+#!/usr/bin/python           # This is client.py file
 
-HOST = '127.0.0.1'  # The server's hostname or IP address
-PORT = 9500        # The port used by the server
-connected = True
-while True:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
-        s.sendall(str.encode(input('Enter Greeting: ')))
-        data = s.recv(1024)
+import socket               # Import socket module
 
-        print(repr(data.decode("utf-8")))
-s.close()
+s = socket.socket()         # Create a socket object
+host = socket.gethostname() # Get local machine name
+port = 9500               # Reserve a port for your service.
+
+s.connect((host, port))
+s.sendall(str.encode(input('Enter Greeting: ')))
+data = s.recv(1024)
+print(data.decode("utf-8"))
+print(s.recv(1024).decode("utf-8"))
+s.close  

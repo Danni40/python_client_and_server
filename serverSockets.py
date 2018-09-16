@@ -1,25 +1,24 @@
-#!/usr/bin/env python3
-from time import sleep
-import socket
+#!/usr/bin/python           # This is server.py file
 
-HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
-PORT = 9500        # Port to listen on (non-privileged ports are > 1023)
+import socket               # Import socket module
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    print('Waiting for a connection...')
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            elif data == b"Hello":
-                reply = b"Hi"
-            else:
-                reply = b'Goodbye'
-            conn.sendall(reply)
-            sleep(1)
-#conn.close()
+s = socket.socket()         # Create a socket object
+host = socket.gethostname() # Get local machine name
+port = 9500                # Reserve a port for your service.
+s.bind((host, port))        # Bind to the port
+
+s.listen(5)                 # Now wait for client connection.
+while True:
+    c, addr = s.accept()     # Establish connection with client.
+    print('Got connection from', addr)
+    data = c.recv(1024)
+    if not data:
+        break
+    elif data == b"Hello":
+        reply = b"Hi"
+    else:
+        reply = b'Goodbye'
+    c.sendall(reply)
+   
+    c.send(str.encode('Thank you for connecting'))
+    c.close()                # Close the connection
