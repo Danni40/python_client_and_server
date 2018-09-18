@@ -10,5 +10,5 @@ s.connect((host, port))
 s.sendall(str.encode(input('Enter Greeting: ')))
 data = s.recv(1024)
 print(data.decode("utf-8"))
-print(s.recv(1024).decode("utf-8"))
-s.close  
+#print(s.recv(1024).decode("utf-8"))
+s.close()

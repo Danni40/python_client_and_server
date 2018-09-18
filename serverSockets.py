@@ -19,6 +19,5 @@ while True:
     else:
         reply = b'Goodbye'
     c.sendall(reply)
-   
-    c.send(str.encode('Thank you for connecting'))
-    c.close()                # Close the connection
+    #c.send(str.encode('Thank you for connecting'))
+c.close()               # Close the connection
